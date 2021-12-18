@@ -5,9 +5,6 @@ import (
 	"log"
 )
 
-// this privatekey is for the sake of testnet. please do not use it on mainnet
-const PRIVATEKEY1 = "16511ea8820eed6ec78caf280ef87f4b5ebf08eb534502d5acfce7ef56ed7760"
-
 // URL
 const RINKEBY_URL = "https://rinkeby.infura.io/v3/b4568b4e98344dcba67986115a04834d"
 
