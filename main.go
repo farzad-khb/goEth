@@ -1,16 +1,16 @@
 package main
 
 import (
+	"eth/config"
+	"eth/ethereumclient"
 	"fmt"
 	"log"
 )
 
-// URL
-const RINKEBY_URL = "https://rinkeby.infura.io/v3/b4568b4e98344dcba67986115a04834d"
-
 func main() {
 	// choose the network
-	networkURL := RINKEBY_URL
+	networkURL := config.GetEnv("RINKEBY_HTTP_URL")
+	fmt.Println("network URL from config is", networkURL)
 
 	// choose privatekey
 	var privatekey string
@@ -33,13 +33,13 @@ func main() {
 	account := generateAddress(generatePublicKey(privateKeyHextoECDSA(privatekey)))
 
 	// balance
-	getBalance(networkURL, account)
+	ethereumclient.GetBalance(networkURL, account)
 
 	// send transaction
 	signedtx := signTransaciton(networkURL, privatekey, reciever, 10000000000000000)
-	sendTransaction(networkURL, signedtx)
+	ethereumclient.SendTransaction(networkURL, signedtx)
 
 	// get transaction status and amount
-	transactionDetial(networkURL, signedtx.Hash().Hex())
+	ethereumclient.GetTransactionDetial(networkURL, signedtx.Hash().Hex())
 
 }

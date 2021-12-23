@@ -1,4 +1,4 @@
-package main
+package ethereumclient
 
 import (
 	"context"
@@ -22,7 +22,7 @@ func newEthereumClient(networkURL string) *ethclient.Client {
 }
 
 // gets detail of certain transaction by its txid
-func transactionDetial(networkURL string, txid string) {
+func GetTransactionDetial(networkURL string, txid string) {
 	ec := newEthereumClient(networkURL)
 	defer ec.Close()
 
@@ -40,7 +40,7 @@ func transactionDetial(networkURL string, txid string) {
 }
 
 // gets nonce of an Ethereum account address
-func getNonce(address common.Address, networkURL string) uint64 {
+func GetNonce(address common.Address, networkURL string) uint64 {
 	ec := newEthereumClient(networkURL)
 	defer ec.Close()
 
@@ -54,7 +54,7 @@ func getNonce(address common.Address, networkURL string) uint64 {
 }
 
 // gets gas price suggestion for the specified network
-func getGasPriceSuggestion(networkURL string) big.Int {
+func GetGasPriceSuggestion(networkURL string) big.Int {
 	ec := newEthereumClient(networkURL)
 	defer ec.Close()
 	gasPrice, err := ec.SuggestGasPrice(context.Background())
@@ -68,7 +68,7 @@ func getGasPriceSuggestion(networkURL string) big.Int {
 }
 
 // gets chain id of the specified network
-func getChainID(networkURL string) big.Int {
+func GetChainID(networkURL string) big.Int {
 	ec := newEthereumClient(networkURL)
 	defer ec.Close()
 
@@ -82,7 +82,7 @@ func getChainID(networkURL string) big.Int {
 }
 
 // sends transaction to the network
-func sendTransaction(networkURL string, signedtx *types.Transaction) {
+func SendTransaction(networkURL string, signedtx *types.Transaction) {
 	ec := newEthereumClient(networkURL)
 	defer ec.Close()
 
@@ -95,7 +95,7 @@ func sendTransaction(networkURL string, signedtx *types.Transaction) {
 }
 
 // gets balance of a certain account
-func getBalance(networkURL string, account common.Address) {
+func GetBalance(networkURL string, account common.Address) {
 	ec := newEthereumClient(networkURL)
 	defer ec.Close()
 

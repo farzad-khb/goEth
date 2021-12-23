@@ -1,6 +1,7 @@
 package main
 
 import (
+	"eth/ethereumclient"
 	"fmt"
 	"log"
 	"math/big"
@@ -15,7 +16,7 @@ func signTransaciton(networkURL string, privHex string, to string, value int64) 
 	fromAddress := generateAddress(generatePublicKey(privateKeyHextoECDSA(privHex)))
 
 	// getting nonce from network
-	nonce := getNonce(fromAddress, networkURL)
+	nonce := ethereumclient.GetNonce(fromAddress, networkURL)
 
 	// value
 	amount := big.NewInt(value)
@@ -24,13 +25,13 @@ func signTransaciton(networkURL string, privHex string, to string, value int64) 
 	gasLimit := uint64(21000)
 
 	// gas price
-	gasPrice := getGasPriceSuggestion(networkURL)
+	gasPrice := ethereumclient.GetGasPriceSuggestion(networkURL)
 
 	// address
 	toAddress := common.HexToAddress(to)
 
 	// getting chain id
-	chainID := getChainID(networkURL)
+	chainID := ethereumclient.GetChainID(networkURL)
 
 	// making transaction
 	tx := types.NewTransaction(nonce, toAddress, amount, gasLimit, &gasPrice, []byte{})
